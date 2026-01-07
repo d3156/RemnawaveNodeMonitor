@@ -7,13 +7,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 #BOOST
-find_package(Boost 1.75 REQUIRED COMPONENTS
-    system
-    thread 
-    json   
-)
+set(Boost_USE_STATIC_LIBS ON)
+set(OPENSSL_USE_STATIC_LIBS TRUE)
 
-#openssl
+set(BUILD_SHARED_LIBS OFF)
+
+find_package(Boost 1.75 REQUIRED COMPONENTS system thread json)
 find_package(OpenSSL REQUIRED)
 
 #executable
@@ -39,3 +38,5 @@ target_link_libraries(remnawave_node_monitor PRIVATE
     OpenSSL::SSL
     OpenSSL::Crypto
 )
+
+set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
