@@ -65,6 +65,28 @@ source .env
 ./remnawave_node_monitor
 ```
 
+## Автозапуск
+Создать файл в /etc/systemd/system/remnawave_node_monitor.service
+```systemctl
+[Unit]
+Description=RemnawaveNodeMonitor
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/RemnawaveNodeMonitor
+EnvironmentFile=/opt/RemnawaveNodeMonitor/.env
+ExecStart=/opt/RemnawaveNodeMonitor/remnawave_node_monitor
+StandardOutput=append:/var/log/remnawave_node_monitor.log
+StandardError=append:/var/log/remnawave_node_monitor-error.log
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+```
+
 ## Результат
 
 Бот бесконечно обновляет последнее отправленное сообщение в чат. Если его перезапустить, то он потеряет id сообщения и пришлёт новое. Старое можно будет удалить.

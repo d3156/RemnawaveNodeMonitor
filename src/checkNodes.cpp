@@ -39,8 +39,6 @@ void checkNodes(CheckNodesData &data)
 
         status += "\nДата обновления: " + currentTime();
 
-        std::cout << "[CheckNodes] " << status << std::endl;
-
         json::object body_json;
         body_json["chat_id"] = data.telegramChatId;
         body_json["text"]    = status;
