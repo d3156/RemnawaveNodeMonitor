@@ -7,7 +7,6 @@ std::chrono::seconds interval = std::chrono::seconds(1);
 
 void tick(const boost::system::error_code & /*e*/, boost::asio::steady_timer &timer, CheckNodesData &data)
 {
-    std::cout << "[Timer] Tick" << std::endl;
     checkNodes(data);
     timer.expires_at(timer.expires_at() + interval);
     timer.async_wait(std::bind(tick, std::placeholders::_1, std::ref(timer), std::ref(data)));
